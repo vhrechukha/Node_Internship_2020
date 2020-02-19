@@ -10,6 +10,7 @@
     "dependencies": {
         "@hapi/joi": "^17.1.0",
         "body-parser": "1.18.2",
+        "commitizen": "^4.0.3",
         "compression": "1.7.1",
         "cookie-parser": "1.4.3",
         "cors": "2.8.5",
@@ -19,5 +20,13 @@
         "helmet": "^3.21.2",
         "mongoose": "^5.9.1",
         "url": "^0.11.0"
+    },
+    "devDependencies": {
+        "cz-conventional-changelog": "^3.1.0"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
 }
