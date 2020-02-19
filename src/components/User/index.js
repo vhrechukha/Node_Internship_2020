@@ -26,15 +26,7 @@ async function findAll(req, res, next) {
  */
 async function findUser(req, res, next) {
     try {
-        let fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`,
-            myURL = new URL(fullUrl),
-            userEmail;
-        
-        myURL.searchParams.forEach((value) => {
-            if (key === 'email') {
-                userEmail = value;
-            }
-        });
+        let userEmail = req.query.email;
 
         const value = await UserValidation.validateEmail(userEmail);
 
@@ -59,19 +51,8 @@ async function findUser(req, res, next) {
  */
 async function createUser(req, res, next) {
     try {
-        let fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`,
-            myURL = new URL(fullUrl),
-            userFullName,
-            userEmail;
-        
-        myURL.searchParams.forEach((value, key) => {
-            if (key === 'fullName') {
-                userFullName = value;
-            }
-            if (key === 'email') {
-                userEmail = value;
-            }
-        });
+        let userFullName = req.body.fullName,
+            userEmail = req.body.email;
 
         const value = await UserValidation.validateEmailAndFullName(userEmail, userFullName);
         
@@ -96,15 +77,7 @@ async function createUser(req, res, next) {
  */
 async function deleteUser(req, res, next) {
     try {
-        let fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`,
-            myURL = new URL(fullUrl),
-            userEmail;
-        
-        myURL.searchParams.forEach((value) => {
-            if (key === 'email') {
-                userEmail = value;
-            }
-        });
+        let userEmail = req.body.email;
 
         const value = await UserValidation.validateEmail(userEmail);
         
@@ -129,21 +102,10 @@ async function deleteUser(req, res, next) {
  */
 async function updateUser(req, res, next) {
     try {
-        let fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`,
-            myURL = new URL(fullUrl),
-            userFullNameNew,
-            userFullName;
-        
-        myURL.searchParams.forEach((value, key) => {
-            if (key === 'updatedName') {
-                userUpdatedName = value;
-            }
-            if (key === 'fullName') {
-                userFullName = value;
-            }
-        });
+        let userFullNameNew = req.body.updatedName,
+            userFullName = req.body.fullName;
 
-        const value = await UserValidation.validateFullNameAndUpdatedName(userFullName, userUpdatedName);
+        const value = await UserValidation.validateFullNameAndUpdatedName(userFullName, userFullNameNew);
         
         if (!value.error) {
             const user = await UserService.updateUser(userFullNameNew, userFullName);

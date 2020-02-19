@@ -13,10 +13,10 @@ module.exports = {
      * @returns void
      */
     init(app) {
+        app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({
             extended: false
         }));
-        app.use(bodyParser.json());
         // parse Cookie header and populate req.cookies with an object keyed by the cookie names.
         app.use(cookieParser());
         // returns the compression middleware
