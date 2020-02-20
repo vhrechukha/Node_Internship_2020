@@ -55,7 +55,7 @@ async function createUser(req, res, next) {
             userEmail = req.body.email;
 
         const value = await UserValidation.validateEmailAndFullName(userEmail, userFullName);
-        
+        console.log(value);
         if (!value.error) {
             const user = await UserService.createUser(userEmail, userFullName);
             res.status(200).send(user);
@@ -102,13 +102,13 @@ async function deleteUser(req, res, next) {
  */
 async function updateUser(req, res, next) {
     try {
-        let userFullNameNew = req.body.updatedName,
+        let userUpdatedName = req.body.updatedName,
             userFullName = req.body.fullName;
 
         const value = await UserValidation.validateFullNameAndUpdatedName(userFullName, userFullNameNew);
         
         if (!value.error) {
-            const user = await UserService.updateUser(userFullNameNew, userFullName);
+            const user = await UserService.updateUser(userUpdatedName, userFullName);
             res.status(200).send(user);
         }
         if (value.error) {

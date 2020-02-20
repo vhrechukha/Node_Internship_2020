@@ -45,7 +45,7 @@ router.post('/create', UserComponent.createUser);
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-router.post('/delete', UserComponent.deleteUser);
+router.delete('/delete', UserComponent.deleteUser);
 
 /**
  * Route update user.
@@ -55,6 +55,6 @@ router.post('/delete', UserComponent.deleteUser);
  * @param {string} path - Express path
  * @param {callback} middleware - Express middleware.
  */
-router.post('/update', UserComponent.updateUser);
+router.put('/update', UserComponent.updateUser);
 
 module.exports = router;
