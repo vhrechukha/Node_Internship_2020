@@ -8,8 +8,8 @@ module.exports = {
      * @summary get list of all users
      * @returns Promise<UserModel[]>
      */
-    async findAll() {
-        return await UserModel.find({});
+    findAll() {
+        return UserModel.find({});
     },
 
     /**
@@ -19,8 +19,8 @@ module.exports = {
      * @summary get user data
      * @returns Promise<UserModel[]>
      */
-    async findUser(userEmail) {
-        return await UserModel.find({email: userEmail});
+    findUser(userEmail) {
+        return UserModel.find({ email: userEmail });
     },
 
     /**
@@ -30,8 +30,8 @@ module.exports = {
      * @summary create user
      * @returns Promise<UserModel[]>
      */
-    async createUser(userEmail, userFullName) {
-        return await UserModel.create({email: userEmail, fullName: userFullName});
+    createUser(userEmail, userFullName) {
+        return UserModel.create({ email: userEmail, fullName: userFullName });
     },
 
     /**
@@ -41,8 +41,8 @@ module.exports = {
      * @summary delete user
      * @returns Promise<UserModel[]>
      */
-    async deleteUser(userEmail) {
-        return await UserModel.deleteOne({email: userEmail});
+    deleteUser(userEmail) {
+        return UserModel.deleteOne({ email: userEmail });
     },
 
     /**
@@ -52,7 +52,7 @@ module.exports = {
      * @summary update user data
      * @returns Promise<UserModel[]>
      */
-    async updateUser(userFullNameNew, userFullName) {
-        return await UserModel.updateOne({fullName: userFullName}, {fullName: userFullNameNew});
+    updateUser(userFullNameNew, userFullName) {
+        return UserModel.updateOne({ fullName: userFullName }, { fullName: userFullNameNew });
     }
 };

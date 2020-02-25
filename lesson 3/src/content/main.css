@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+  color: #000;
+}
+
+p {
+  font-family: 'ZCOOL QingKe HuangYou', serif;
+}
+
+.create-user-form,
+.update-user-form,
+.delete-user-form {
+  width: 360px;
+  margin: auto;
+}
+
+.form {
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form .input-text {
+  font-family: 'ZCOOL QingKe HuangYou', serif;
+  outline: 0;
+  background: #fff;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.button {
+  font-family: 'ZCOOL QingKe HuangYou', serif;
+  border: 2px solid #1a1a1a;
+  text-transform: uppercase;
+  outline: 0;
+  background: #fff;
+  width: 100%;
+  padding: 15px;
+  color: #1a1a1a;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.button:hover, .button:active, .button:focus {
+  color: #fff;
+  background: #1a1a1a;
+  border: 2px solid #fff;
+}
+
+.form-none {
+  display: none;
+}
+
+.user-table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border: 2px solid #1a1a1a;
+}
+
+.user-table td, .user-table th {
+  font-family: 'ZCOOL QingKe HuangYou', serif;
+  border: 1px solid #fff;
+  padding: 8px;
+}
+
+.user-table tr:nth-child{
+  border: 2px solid #1a1a1a;
+}
+
+.user-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.td-button {  
+  color: #1a1a1a; 
+  text-align: center;
+}
+
+.td-button a:hover, .td-button a:active, .td-button a:focus {
+  color: #fff;
+  background-color: #1a1a1a;
+}

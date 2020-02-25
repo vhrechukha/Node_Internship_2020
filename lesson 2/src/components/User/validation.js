@@ -27,7 +27,7 @@ const UpdatedNameAndFullNameSchema = Joi.object({
         .alphanum()
         .min(1)
         .max(12)
-        .required(),
+        .required()
 });
 
 
@@ -37,10 +37,14 @@ module.exports = {
      * @method validateEmailAndFullName
      * @param {}
      * @summary validate email and fullName
-     * @returns 
+     * @returns
      */
-    async validateEmailAndFullName(userEmail, userFullName) {
-        return await EmailAndFullNameSchema.validate({ email: userEmail, fullName: userFullName}, {allowUnknown: true});
+    validateEmailAndFullName(userEmail, userFullName) {
+        return EmailAndFullNameSchema.validate({
+            email: userEmail,
+            fullName: userFullName
+        },
+        { allowUnknown: true });
     },
 
     /**
@@ -48,20 +52,23 @@ module.exports = {
      * @method validateEmail
      * @param {}
      * @summary validate email
-     * @returns 
+     * @returns
      */
-    async validateEmail(userEmail) {
-        return await EmailSchema.validate({ email: userEmail});
+    validateEmail(userEmail) {
+        return EmailSchema.validate({ email: userEmail });
     },
 
-        /**
+    /**
      * @exports
      * @method validateFullNameAndUpdatedName
      * @param {}
      * @summary validatee fullName and updated name
-     * @returns 
+     * @returns
      */
-    async validateFullNameAndUpdatedName(userFullName, userUpdatedName) {
-        return await UpdatedNameAndFullNameSchema.validate({ fullName: userFullName, updatedName: userUpdatedName});
-    },
+    validateFullNameAndUpdatedName(userFullName, userUpdatedName) {
+        return UpdatedNameAndFullNameSchema.validate({
+            fullName: userFullName,
+            updatedName: userUpdatedName
+        });
+    }
 };

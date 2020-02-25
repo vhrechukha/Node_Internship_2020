@@ -2,7 +2,7 @@ const UserService = require('./service');
 const UserValidation = require('./validation');
 
 /**
- * @function
+ * @function 
  * @param {express.Request} req
  * @param {express.Response} res
  * @param {express.NextFunction} next
@@ -30,13 +30,12 @@ async function findUser(req, res, next) {
 
         const value = await UserValidation.validateEmail(userEmail);
 
-        if (!value.error) {
-            const user = await UserService.findUser(userEmail);
-            res.status(200).send(user);
-        }
         if (value.error) {
             res.status(200).send(`You wrote something weird. Please, verify you data :3`);
         }
+
+        const user = await UserService.findUser(userEmail);
+        res.status(200).send(user);
     } catch (error) {
         next(error);
     }
@@ -55,14 +54,13 @@ async function createUser(req, res, next) {
             userEmail = req.body.email;
 
         const value = await UserValidation.validateEmailAndFullName(userEmail, userFullName);
-        console.log(value);
-        if (!value.error) {
-            const user = await UserService.createUser(userEmail, userFullName);
-            res.status(200).send(user);
-        }
+
         if (value.error) {
             res.status(400).send(`You wrote something weird. Please, verify you data :3`);
         }
+
+        const user = await UserService.createUser(userEmail, userFullName);
+        res.status(200).send(user);
     } catch (error) {
         next(error);
     }
@@ -80,14 +78,13 @@ async function deleteUser(req, res, next) {
         let userEmail = req.body.email;
 
         const value = await UserValidation.validateEmail(userEmail);
-        
-        if (!value.error) {
-            const user = await UserService.deleteUser(userEmail);
-            res.status(200).send(user);
-        }
+
         if (value.error) {
             res.status(200).send(`You wrote something weird. Please, verify you data :3`);
         }
+
+        const user = await UserService.deleteUser(userEmail);
+        res.status(200).send(user);
     } catch (error) {
         next(error);
     }
@@ -107,13 +104,12 @@ async function updateUser(req, res, next) {
 
         const value = await UserValidation.validateFullNameAndUpdatedName(userFullName, userFullNameNew);
         
-        if (!value.error) {
-            const user = await UserService.updateUser(userUpdatedName, userFullName);
-            res.status(200).send(user);
-        }
         if (value.error) {
             res.status(200).send(`You wrote something weird. Please, verify you data :3`);
         }
+
+        const user = await UserService.updateUser(userUpdatedName, userFullName);
+        res.status(200).send(user);
     } catch (error) {
         next(error);
     }

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/main.css">
+    <title>USERS</title>
+</head>
+<body>
+  <style>
+    /*p {
+      font-family: 'ZCOOL QingKe HuangYou', serif;
+    }
+
+    .create-user-form,
+    .update-user-form,
+    .delete-user-form {
+        width: 360px;
+        margin: auto;
+      }
+      .form {
+        position: absolute;
+        z-index: 1;
+        background: #fff;
+        max-width: 360px;
+        margin: 0 auto 100px;
+        padding: 45px;
+        text-align: center;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+      }
+      .form .input-text {
+        font-family: 'ZCOOL QingKe HuangYou', serif;
+        outline: 0;
+        background: #fff;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+      }
+       .button {
+        font-family: 'ZCOOL QingKe HuangYou', serif;
+        border: 2px solid #1a1a1a;
+        text-transform: uppercase;
+        outline: 0;
+        background: #fff;
+        width: 100%;
+        padding: 15px;
+        color: #1a1a1a;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .button:hover, .button:active, .button:focus {
+        color: #fff;
+        background: #1a1a1a;
+      }
+
+      .form-none {
+        display: none;
+      }
+
+      .user-table {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      }
+
+      .user-table td, .user-table th {
+      font-family: 'ZCOOL QingKe HuangYou', serif;
+      border: 1px solid #fff;
+      padding: 8px;
+      }
+
+      .user-table tr:nth-child{
+        border: 2px solid #1a1a1a;
+      }
+
+      .user-table th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #1a1a1a;
+      color: #fff;
+      }
+
+      .td-button {
+        color: #1a1a1a;
+        text-align: center;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .td-button:hover, .td-button:active, .td-button:focus {
+        color: #fff;
+        background-color: #1a1a1a;
+      }*/
+  </style>
+    <section>
+      <div id="deleteUser">
+        <div class="delete-user-form form-none">
+          <div class="form">
+            <p>Do you really want to delete?</p>
+            <form method="POST" action="/v1/users/delete/?_method=DELETE">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <input type="hidden" name="id"  id="userIdHiddenInputForDelete">
+              <input type="submit" class="button" value="Delete">
+            </form>
+          </div>
+        </div>
+    </div>
+    <div id="updateUser">
+      <div class="update-user-form form-none">
+        <div class="form">
+          <form method="POST" action="/v1/users/update/?_method=PUT">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input class="input-text" type="text" name="fullName" placeholder="fullname">
+            <input type="hidden" name="id" id="userIdHiddenInputForUpdate">
+            <input class="button" type="submit" value="Update">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="create-user-form form-none">
+      <div class="form">
+        <form method="POST" action="/v1/users/create">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input class="input-text" type="text" name="fullName" placeholder="fullname">
+          <input class="input-text" type="email" name="email" placeholder="email">
+          <input class="button" type="submit" value="Create">
+        </form>
+      </div>
+    </div>
+    <input class="button" id="createUser" type="submit" value="Create User"> 
+    <table class="user-table">
+      <tr>
+        <th>#</th>
+        <th>email</th>
+        <th></th>
+        <th>full name</th>
+        <th></th>
+    </tr>
+    <% data.forEach(function(i, index){ %>
+      <tr id="<%= i.id %>">
+        <td><%= index %></td>
+        <td><%= i.email %></td>
+        <td class="td-button">
+          <a href="#updateUser" id="update">update</a>
+        </td>
+        <td><%= i.fullName %></td>
+        <td class="td-button">
+          <a href="#delete" id="delete">delete</a>
+        </td>
+      </tr>
+      <% }); %>
+    </table>
+  </section>
+  <script>
+    document.onclick = function(event) {
+      let t = event.target || event.innerText || textContent; 
+      console.log(t);
+      if (t.id === 'createUser') {
+        document.querySelector('.create-user-form').classList.toggle("form-none");
+      }
+      if (t.id === 'delete') {
+        document.querySelector('#userIdHiddenInputForDelete').value = t.parentNode.parentNode.id;
+        document.querySelector('.delete-user-form').classList.toggle("form-none");
+      }
+      if (t.id === 'update') {
+        document.querySelector('#userIdHiddenInputForUpdate').value = t.parentNode.parentNode.id;
+        document.querySelector('.update-user-form').classList.toggle("form-none");
+      }
+    };
+  </script>
+</body>
+</html>
