@@ -32,7 +32,9 @@ class UserValidation extends Validation {
     create(profile) {
         return this.Joi
             .object({
-                email: this.Joi.string().email(),
+                email: this.Joi
+                    .string()
+                    .email(),
                 fullName: this.Joi
                     .string()
                     .min(1)
