@@ -15,6 +15,7 @@ async function findAll(req, res, next) {
 
         return res.render('users', {
             data: users,
+            error: '',
             csrfToken: req.csrfToken(),
         });
     } catch (error) {
@@ -88,6 +89,16 @@ async function create(req, res, next) {
             return res.status(422).json({
                 message: error.name,
                 details: error.message,
+            });
+        }
+
+        if (error.name === 'MongoError' && error.code === 11000) {
+            const users = await UserService.findAll();
+
+            return res.render('users', {
+                data: users,
+                error: `This email or name is already exists`,
+                csrfToken: req.csrfToken(),
             });
         }
 
