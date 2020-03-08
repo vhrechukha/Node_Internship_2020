@@ -93,13 +93,8 @@ async function create(req, res, next) {
         }
 
         if (error.name === 'MongoError' && error.code === 11000) {
-            const users = await UserService.findAll();
-
-            return res.render('users', {
-                data: users,
-                error: `This email or name is already exists`,
-                csrfToken: req.csrfToken(),
-            });
+            req.flash('error', 'Error messoge');
+            return res.redirect('/v1/users');
         }
 
         res.status(500).json({

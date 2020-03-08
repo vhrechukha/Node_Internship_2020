@@ -44,7 +44,7 @@
       </div>
     </div>
     <input class="button" id="createUser" type="submit" value="Create User"> 
-    <p><% if ( !error || typeof error !== undefined ) { %>
+    <p><% if ( error.length > 0 ) { %>
           <%= error %>
         <% } %></p>
     <table class="user-table">
