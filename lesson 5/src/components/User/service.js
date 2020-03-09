@@ -1,4 +1,5 @@
 const UserModel = require('./model');
+const jwt = require('jsonwebtoken');
 
 /**
  * @exports
@@ -57,10 +58,23 @@ function deleteById(_id) {
     return UserModel.deleteOne({ _id }).exec();
 }
 
+/**
+ * @exports
+ * @method auth
+ * @param {string} token
+ * @param {string} user
+ * @summary delete a user from database
+ * @returns {Promise<void>}
+ */
+function auth(token) {
+    return jwt.verify(token, 'g5h378fs');
+}
+
 module.exports = {
     findAll,
     findById,
     create,
     updateById,
     deleteById,
+    auth
 };

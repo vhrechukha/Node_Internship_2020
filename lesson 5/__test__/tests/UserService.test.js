@@ -14,7 +14,7 @@ describe('UserComponent -> service', () => {
                 .catch(done);
         });
         it('UserComponent -> service -> findById', (done) => {
-            UtilService.findById('5e64ed2a0b56c610688fae01')
+            UtilService.findById('5e64ed7dd2b68f17f4341492')
                 .then((body) => {
                     const expectBody = expect(body);
                     expectBody.to.be.an('object');

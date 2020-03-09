@@ -53,6 +53,9 @@ class UserValidation extends Validation {
                     .min(1)
                     .max(30)
                     .required(),
+                token: this.Joi
+                    .string()
+                    .required(),
             })
             .validate(data);
     }
@@ -66,8 +69,26 @@ class UserValidation extends Validation {
         return this.Joi
             .object({
                 id: this.Joi.objectId(),
+                token: this.Joi
+                    .string()
+                    .required(),
             })
             .validate(data);
+    }
+
+    /**
+     * @param {String} profile.email
+     * @param {String} profile.fullName
+     * @returns
+     * @memberof UserValidation
+     */
+    login(profile) {
+        return this.Joi
+            .object({
+                id: this.Joi.objectId(),
+                email: this.Joi.string().email(),
+            })
+            .validate(profile);
     }
 }
 

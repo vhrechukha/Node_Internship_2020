@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const UserComponent = require('../User');
+const UserService = require('./service');
+
 
 /**
  * Express router to mount user related functions on.
@@ -57,5 +59,15 @@ router.put('/update', UserComponent.updateById);
  * @param {callback} middleware - Express middleware
  */
 router.delete('/delete', UserComponent.deleteById);
+
+/**
+ * Route for login user.
+ * @name /v1/users
+ * @function
+ * @inner
+ * @param {string} path -Express path
+ * @param {callback} middleware - Express middleware
+ */
+router.post('/login', UserComponent.login);
 
 module.exports = router;

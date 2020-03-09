@@ -1,6 +1,7 @@
 const UserService = require('./service');
 const UserValidation = require('./validation');
 const ValidationError = require('../../error/ValidationError');
+const jwt = require('jsonwebtoken');
 
 /**
  * @function
@@ -11,8 +12,12 @@ const ValidationError = require('../../error/ValidationError');
  */
 async function findAll(req, res, next) {
     try {
+        const result = await UserService.auth(req.query.token);
+
         const users = await UserService.findAll();
+        
         res.status(200).json({
+            result: result,
             data: users,
         });
     } catch (error) {
@@ -34,6 +39,8 @@ async function findAll(req, res, next) {
  */
 async function findById(req, res, next) {
     try {
+        const result = await UserService.auth(req.query.token);
+
         const { error } = UserValidation.findById(req.params);
 
         if (error) {
@@ -43,6 +50,7 @@ async function findById(req, res, next) {
         const user = await UserService.findById(req.params.id);
 
         return res.status(200).json({
+            result: result,
             data: user,
         });
     } catch (error) {
@@ -108,6 +116,8 @@ async function create(req, res, next) {
  */
 async function updateById(req, res, next) {
     try {
+        const result = await UserService.auth(req.body.token);
+
         const { error } = UserValidation.updateById(req.body);
 
         if (error) {
@@ -117,6 +127,7 @@ async function updateById(req, res, next) {
         const updatedUser = await UserService.updateById(req.body.id, req.body);
 
         return res.status(200).json({
+            result: result,
             data: updatedUser,
         });
     } catch (error) {
@@ -145,6 +156,8 @@ async function updateById(req, res, next) {
  */
 async function deleteById(req, res, next) {
     try {
+        const result = await UserService.auth(req.body.token);
+
         const { error } = UserValidation.deleteById(req.body);
 
         if (error) {
@@ -154,6 +167,7 @@ async function deleteById(req, res, next) {
         const deletedUser = await UserService.deleteById(req.body.id);
 
         return res.status(200).json({
+            result: result,
             data: deletedUser,
         });
     } catch (error) {
@@ -173,10 +187,55 @@ async function deleteById(req, res, next) {
     }
 }
 
+/**
+ * @function
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ * @returns {Promise < void >}
+ */
+async function login(req, res, next) {
+    try {
+        const user = await UserService.findById(req.body.id);
+        let result = '';
+
+        console.log('LOGIN');
+        if (user.email === req.body.email) {
+            console.log('auth OK');
+            result = "You auth succesfull";
+        }
+
+        const token = jwt.sign({id: user.id}, 'g5h378fs')
+
+        return res.status(200).json({
+            token: token,
+            result: result,
+            data: user, 
+        });
+    } catch (error) {
+        if (error instanceof ValidationError) {
+            return res.status(422).json({
+                error: error.name,
+                details: error.message,
+            });
+        }
+
+        res.status(500).json({
+            result: 'Check your data',
+            message: error.name,
+            details: error.message,
+        });
+
+        return next(error);
+    }
+}
+
+
 module.exports = {
     findAll,
     findById,
     create,
     updateById,
     deleteById,
+    login
 };

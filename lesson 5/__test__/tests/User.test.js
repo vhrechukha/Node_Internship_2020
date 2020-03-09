@@ -9,7 +9,7 @@ describe('UserComponent -> controller', () => {
     describe('GET /v1/users', () => {
         it('Get all users [GET, status code: 200]',  (done) => {
             request(server)
-                .get('/v1/users')
+                .get('/v1/users/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZDJhMGI1NmM2MTA2ODhmYWUwMSIsImlhdCI6MTU4Mzc3MDk2M30.Nz1Lx0GhERlz65JAefAcZ-tAZ391Q2K_VdATuAh7_Xw')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -28,7 +28,8 @@ describe('UserComponent -> controller', () => {
             request(server)
                 .post('/v1/users/create')
                 .set('content-type', 'application/x-www-form-urlencoded')
-                .send({email: 'NEWU564S8ER@gmail.com', fullName: 'Jacson'})
+                .send({email: 'NEWS8ER@gmail.com',
+                       fullName: 'NEWU4S8ER@gmail.com'})
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(({ body }) => {
@@ -59,7 +60,7 @@ describe('UserComponent -> controller', () => {
     describe('GET /v1/users/:id', () => {
         it('Get user with id [GET, status code: 200]', (done) => {
             request(server)
-                .get(`/v1/users/${user_id}`)
+                .get(`/v1/users/${user_id}?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZDJhMGI1NmM2MTA2ODhmYWUwMSIsImlhdCI6MTU4Mzc3MDk2M30.Nz1Lx0GhERlz65JAefAcZ-tAZ391Q2K_VdATuAh7_Xw`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -74,7 +75,7 @@ describe('UserComponent -> controller', () => {
         });
         it('!Get user with bad id (VALIDATION) [GET, status code: 422]', (done) => {
             request(server)
-                .get(`/v1/users/0`)
+                .get(`/v1/users/0?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZDJhMGI1NmM2MTA2ODhmYWUwMSIsImlhdCI6MTU4Mzc3MDk2M30.Nz1Lx0GhERlz65JAefAcZ-tAZ391Q2K_VdATuAh7_Xw`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(422)
@@ -89,7 +90,7 @@ describe('UserComponent -> controller', () => {
         });
         it('!Get user with wrong id [GET, status code: 200]', (done) => {
             request(server)
-                .get(`/v1/users/5e5e78106435b312c0c4e458`)
+                .get(`/v1/users/5e5e78106435b312c0c4e458?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZDJhMGI1NmM2MTA2ODhmYWUwMSIsImlhdCI6MTU4Mzc3MDk2M30.Nz1Lx0GhERlz65JAefAcZ-tAZ391Q2K_VdATuAh7_Xw`)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200)
@@ -108,7 +109,7 @@ describe('UserComponent -> controller', () => {
             request(server)
                 .put('/v1/users/update')
                 .set('content-type', 'application/x-www-form-urlencoded')
-                .send({id: user_id, fullName: 'NEW USER'})
+                .send({id: user_id, fullName: 'NEW USER', token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZDJhMGI1NmM2MTA2ODhmYWUwMSIsImlhdCI6MTU4Mzc3MDk2M30.Nz1Lx0GhERlz65JAefAcZ-tAZ391Q2K_VdATuAh7_Xw'})
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(({ body }) => {
@@ -124,7 +125,7 @@ describe('UserComponent -> controller', () => {
             request(server)
                 .put('/v1/users/update')
                 .set('content-type', 'application/x-www-form-urlencoded')
-                .send({id: '', fullName: 'NEW USER'})
+                .send({id: '', fullName: 'NEW USER', token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZDJhMGI1NmM2MTA2ODhmYWUwMSIsImlhdCI6MTU4Mzc3MDk2M30.Nz1Lx0GhERlz65JAefAcZ-tAZ391Q2K_VdATuAh7_Xw'})
                 .expect('Content-Type', /json/)
                 .expect(422)
                 .then(({ body }) => {
@@ -142,7 +143,7 @@ describe('UserComponent -> controller', () => {
             request(server)
                 .del('/v1/users/delete')
                 .set('content-type', 'application/x-www-form-urlencoded')
-                .send({id: user_id})
+                .send({id: user_id, token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZDJhMGI1NmM2MTA2ODhmYWUwMSIsImlhdCI6MTU4Mzc3MDk2M30.Nz1Lx0GhERlz65JAefAcZ-tAZ391Q2K_VdATuAh7_Xw'})
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then(({ body }) => {
@@ -158,7 +159,7 @@ describe('UserComponent -> controller', () => {
             request(server)
                 .del('/v1/users/delete')
                 .set('content-type', 'application/x-www-form-urlencoded')
-                .send({id: ''})
+                .send({id: '', token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNjRlZDJhMGI1NmM2MTA2ODhmYWUwMSIsImlhdCI6MTU4Mzc3MDk2M30.Nz1Lx0GhERlz65JAefAcZ-tAZ391Q2K_VdATuAh7_Xw'})
                 .expect('Content-Type', /json/)
                 .expect(422)
                 .then(({ body }) => {
