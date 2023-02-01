@@ -19,7 +19,7 @@
         "helmet": "^3.21.3",
         "jsonwebtoken": "^8.5.1",
         "mocha": "7.1.0",
-        "mongoose": "5.7.5",
+        "mongoose": "5.13.15",
         "supertest": "4.0.2"
     },
     "devDependencies": {
